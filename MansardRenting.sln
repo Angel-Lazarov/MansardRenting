@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Web", "MansardRenting.Web\MansardRenting.Web.csproj", "{35C2E0D2-CE61-48EB-87D0-AA12CA3A20DE}"
 EndProject
@@ -20,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Web.ViewModels", "MansardRenting.Web.ViewModels\MansardRenting.Web.ViewModels.csproj", "{8322008C-7F82-4B44-BB95-4B69837B38A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Common", "MansardRenting.Common\MansardRenting.Common.csproj", "{32007442-B46F-49FB-8672-E54869DDC866}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{064C22BF-06F0-4A4B-B43C-66B4439A2625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Services.Data", "MansardRenting.Services.Data\MansardRenting.Services.Data.csproj", "{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{32007442-B46F-49FB-8672-E54869DDC866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32007442-B46F-49FB-8672-E54869DDC866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32007442-B46F-49FB-8672-E54869DDC866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +74,6 @@ Global
 		{A0F5475D-9C3A-4590-94C3-297EE8643EEA} = {29D5D2A4-FA65-46DA-AD10-AE2F5EAE02E7}
 		{10098DF2-24A8-4031-89DF-0CFADBAB139A} = {29D5D2A4-FA65-46DA-AD10-AE2F5EAE02E7}
 		{8322008C-7F82-4B44-BB95-4B69837B38A6} = {70C61304-D1DB-49A4-8D6C-50415CCD15EF}
+		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F} = {064C22BF-06F0-4A4B-B43C-66B4439A2625}
 	EndGlobalSection
 EndGlobal

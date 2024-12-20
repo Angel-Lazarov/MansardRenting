@@ -12,8 +12,8 @@ public class Program
 
 		builder.AddServiceDefaults();
 
-		//var connectionString = builder.Configuration.GetConnectionString("WorkConnection");
-		var connectionString = builder.Configuration.GetConnectionString("HomeConnection");
+		var connectionString = builder.Configuration.GetConnectionString("WorkConnection");
+		//var connectionString = builder.Configuration.GetConnectionString("HomeConnection");
 
 		builder.Services.AddDbContext<MansardRentingDbContext>(options =>
 			options.UseSqlServer(connectionString));

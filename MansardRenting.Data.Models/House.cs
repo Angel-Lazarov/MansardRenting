@@ -9,6 +9,7 @@ namespace MansardRenting.Data.Models
         {
             Id = Guid.NewGuid(); // Autogenerate Guid Id in the DB
         }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -23,6 +24,8 @@ namespace MansardRenting.Data.Models
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
+        public DateTime CreatedOn { get; set; }
 
         [Required]
         [MaxLength(ImageUrlMaxLength)]
