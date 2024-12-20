@@ -20,7 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\MansardRenting.Data.Models\MansardRenting.Data.Models.csproj" />
     <ProjectReference Include="..\MansardRenting.Data\MansardRenting.Data.csproj" />
+    <ProjectReference Include="..\MansardRenting.Infrastructure\MansardRenting.Infrastructure.csproj" />
     <ProjectReference Include="..\MansardRenting.ServiceDefaults\MansardRenting.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\MansardRenting.Services.Data\MansardRenting.Services.Data.csproj" />
     <ProjectReference Include="..\MansardRenting.Web.ViewModels\MansardRenting.Web.ViewModels.csproj" />
   </ItemGroup>
 

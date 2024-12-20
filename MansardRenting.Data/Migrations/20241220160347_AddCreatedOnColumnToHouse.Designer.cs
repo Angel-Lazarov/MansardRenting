@@ -211,7 +211,7 @@ namespace MansardRenting.Data.Migrations
                             Description = "A big house for your whole family. Don't miss to buy a house with three bedrooms.",
                             ImageUrl = "https://www.luxury-architecture.net/wp-content/uploads/2017/12/1513217889-7597-FAIRWAYS-010.jpg",
                             PricePerMonth = 2100.00m,
-                            RenterId = new Guid("fadd2226-6818-492a-de6e-08dd203f8be7"),
+                            RenterId = new Guid("863C6200-DA00-4CC4-20F1-08DD20683655"),
                             Title = "Big House Marina"
                         },
                         new
