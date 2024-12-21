@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace MansardRenting.Infrastructure.Extensions
+namespace MansardRenting.Web.Infrastructure.Extensions
 {
 	public static class WebApplicationBuilderExtensions
 	{

@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{064C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Services.Data", "MansardRenting.Services.Data\MansardRenting.Services.Data.csproj", "{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Infrastructure", "MansardRenting.Infrastructure\MansardRenting.Infrastructure.csproj", "{615585A2-CB33-436A-8876-999A1E7D8428}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Web.Infrastructure", "MansardRenting.Infrastructure\MansardRenting.Web.Infrastructure.csproj", "{615585A2-CB33-436A-8876-999A1E7D8428}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

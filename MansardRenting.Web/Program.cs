@@ -1,7 +1,7 @@
 using MansardRenting.Data;
 using MansardRenting.Data.Models;
-using MansardRenting.Infrastructure.Extensions;
 using MansardRenting.Services.Data.Interfaces;
+using MansardRenting.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MansardRenting.Web;
