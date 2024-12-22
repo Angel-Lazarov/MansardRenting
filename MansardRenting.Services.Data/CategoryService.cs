@@ -33,5 +33,11 @@ namespace MansardRenting.Services.Data
 		{
 			return await dbContext.Categories.AnyAsync(c => c.Id == categoryId);
 		}
+
+		public async Task<IEnumerable<string>> AllCategoryNamesAsync()
+		{
+			IEnumerable<string> allNames = await dbContext.Categories.Select(c => c.Name).ToArrayAsync();
+			return allNames;
+		}
 	}
 }

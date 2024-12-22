@@ -10,6 +10,7 @@
     <ProjectReference Include="..\MansardRenting.Common\MansardRenting.Common.csproj" />
     <ProjectReference Include="..\MansardRenting.Data.Models\MansardRenting.Data.Models.csproj" />
     <ProjectReference Include="..\MansardRenting.Data\MansardRenting.Data.csproj" />
+    <ProjectReference Include="..\MansardRenting.Services.Data.Models\MansardRenting.Services.Data.Models.csproj" />
     <ProjectReference Include="..\MansardRenting.Web.ViewModels\MansardRenting.Web.ViewModels.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using MansardRenting.Services.Data.Interfaces;
+using MansardRenting.Services.Data.Models.House;
 using MansardRenting.Web.Infrastructure.Extensions;
 using MansardRenting.Web.ViewModels.House;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +22,17 @@ namespace MansardRenting.Web.Controllers
 			houseService = _houseService;
 		}
 
+		[HttpGet]
 		[AllowAnonymous]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery] AllHousesQueryModel queryModel)
 		{
-			return View();
+			AllHousesFilteredAndPagedServiceModel serviceModel = await houseService.AllAsync(queryModel);
+
+			queryModel.Houses = serviceModel.Houses;
+			queryModel.TotalHouses = serviceModel.TotalHousesCount;
+			queryModel.Categories = await categoryService.AllCategoryNamesAsync();
+
+			return View(queryModel);
 		}
 
 		public async Task<IActionResult> Mine()

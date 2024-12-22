@@ -1,0 +1,36 @@
+﻿using MansardRenting.Web.ViewModels.House.Enums;
+using System.ComponentModel.DataAnnotations;
+using static MansardRenting.Common.ApplicationConstants;
+
+namespace MansardRenting.Web.ViewModels.House
+{
+	public class AllHousesQueryModel
+	{
+		public AllHousesQueryModel()
+		{
+			CurrentPage = DefaultPage;
+			HousesPerPage = EntitiesPerPage;
+
+			Categories = new HashSet<string>();
+			Houses = new HashSet<HouseAllViewModel>();
+		}
+
+		public string? Category { get; set; }
+
+		[Display(Name = "Search by word")]
+		public string? SearchString { get; set; }
+
+		[Display(Name = "Sort Houses By")]
+		public HouseSorting HouseSorting { get; set; }
+
+		public int CurrentPage { get; set; }
+
+		public int HousesPerPage { get; set; }
+
+		public int TotalHouses { get; set; }
+
+		public IEnumerable<string> Categories { get; set; }
+
+		public IEnumerable<HouseAllViewModel> Houses { get; set; }
+	}
+}

@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Services.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Web.Infrastructure", "MansardRenting.Infrastructure\MansardRenting.Web.Infrastructure.csproj", "{615585A2-CB33-436A-8876-999A1E7D8428}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MansardRenting.Services.Data.Models", "MansardRenting.Services.Data.Models\MansardRenting.Services.Data.Models.csproj", "{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{615585A2-CB33-436A-8876-999A1E7D8428}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615585A2-CB33-436A-8876-999A1E7D8428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615585A2-CB33-436A-8876-999A1E7D8428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{8322008C-7F82-4B44-BB95-4B69837B38A6} = {70C61304-D1DB-49A4-8D6C-50415CCD15EF}
 		{52C02EF7-6F7F-49F5-BF0C-C87E11E9F96F} = {064C22BF-06F0-4A4B-B43C-66B4439A2625}
 		{615585A2-CB33-436A-8876-999A1E7D8428} = {70C61304-D1DB-49A4-8D6C-50415CCD15EF}
+		{7BAFCA51-CE4E-45A2-B8BD-205DA65D850D} = {064C22BF-06F0-4A4B-B43C-66B4439A2625}
 	EndGlobalSection
 EndGlobal
