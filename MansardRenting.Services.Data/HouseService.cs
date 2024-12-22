@@ -1,6 +1,8 @@
 ﻿using MansardRenting.Data;
+using MansardRenting.Data.Models;
 using MansardRenting.Services.Data.Interfaces;
 using MansardRenting.Web.ViewModels.Home;
+using MansardRenting.Web.ViewModels.House;
 using Microsoft.EntityFrameworkCore;
 
 namespace MansardRenting.Services.Data
@@ -28,6 +30,23 @@ namespace MansardRenting.Services.Data
 				.ToArrayAsync();
 
 			return lastThreeHouses;
+		}
+
+		public async Task CreateAsync(HouseFormModel model, string agentId)
+		{
+			House newHouse = new House
+			{
+				Title = model.Title,
+				Address = model.Address,
+				AgentId = Guid.Parse(agentId),
+				CategoryId = model.CategoryId,
+				Description = model.Description,
+				ImageUrl = model.ImageUrl,
+				PricePerMonth = model.PricePerMonth
+			};
+
+			await dbContext.Houses.AddAsync(newHouse);
+			await dbContext.SaveChangesAsync();
 		}
 	}
 }

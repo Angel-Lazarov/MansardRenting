@@ -1,7 +1,9 @@
+using MansardRenting.Common;
 using MansardRenting.Data;
 using MansardRenting.Data.Models;
 using MansardRenting.Services.Data.Interfaces;
 using MansardRenting.Web.Infrastructure.Extensions;
+using MansardRenting.Web.Infrastructure.ModelBinders;
 using Microsoft.EntityFrameworkCore;
 
 namespace MansardRenting.Web;
@@ -32,7 +34,14 @@ public class Program
 			 .AddEntityFrameworkStores<MansardRentingDbContext>();
 		builder.Services.AddApplicationServices(typeof(IHouseService));
 
-		builder.Services.AddControllersWithViews();  // Register the controllers
+		builder.Services
+			.AddControllersWithViews() // Register the controllers
+			.AddMvcOptions(options =>
+			{
+				options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider(FormatConstant.NormalDateFormat));
+				options.ModelBinderProviders.Insert(1, new DecimalModelBinderProvider());
+				//options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
+			});
 
 		WebApplication app = builder.Build();
 

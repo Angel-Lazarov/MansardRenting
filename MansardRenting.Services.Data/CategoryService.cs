@@ -28,5 +28,10 @@ namespace MansardRenting.Services.Data
 
 			return allCategories;
 		}
+
+		public async Task<bool> ExistsByIdAsync(int categoryId)
+		{
+			return await dbContext.Categories.AnyAsync(c => c.Id == categoryId);
+		}
 	}
 }
