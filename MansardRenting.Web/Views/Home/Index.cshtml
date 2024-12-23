@@ -1,14 +1,14 @@
-﻿﻿@using MansardRenting.Services.Data.Interfaces
-@* @using MansardRenting.Web.Infrastructure.Extensions
- *@@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using MansardRenting.Services.Data.Interfaces
+@using MansardRenting.Web.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<IndexViewModel>
 
-@* @inject IAgentService AgentService
- *@@{
+@inject IAgentService AgentService
+@{
 	ViewData["Title"] = "Home Page";
 
 	var houses = Model.ToList();
-	// bool isUserAgent = await AgentService.AgentExistsByUserIdAsync(User.GetId()!);
+	bool isUserAgent = await AgentService.AgentExistsByUserIdAsync(User.GetId()!);
 }
 
 @if (!houses.Any())
@@ -23,11 +23,11 @@
 		<p class="lead">
 			@if (User.Identity?.IsAuthenticated ?? false)
 			{
-				@*   @if (isUserAgent)
+				  @if (isUserAgent)
                 {
                     <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg"
                        role="button">Add House</a>
-                } *@
+                }
 			}
 		</p>
 	</div>
@@ -63,7 +63,6 @@
 </div>
 
 <div class="mb-5"></div>
-@* 
 <div class="row">
 	<div class="col-12 text-center">
 		<button class="btn btn-primary" id="statistics_btn">Show Statistics</button>
@@ -80,4 +79,4 @@
 @section Scripts
 {
 	<script>statistics();</script>
-} *@
+} 
