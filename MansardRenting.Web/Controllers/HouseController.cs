@@ -8,97 +8,111 @@ using static MansardRenting.Common.NotificationMessagesConstants;
 
 namespace MansardRenting.Web.Controllers
 {
-	[Authorize]
-	public class HouseController : Controller
-	{
-		private readonly ICategoryService categoryService;
-		private readonly IAgentService agentService;
-		private readonly IHouseService houseService;
+    [Authorize]
+    public class HouseController : Controller
+    {
+        private readonly ICategoryService categoryService;
+        private readonly IAgentService agentService;
+        private readonly IHouseService houseService;
 
-		public HouseController(ICategoryService _categoryService, IAgentService _agentService, IHouseService _houseService)
-		{
-			categoryService = _categoryService;
-			agentService = _agentService;
-			houseService = _houseService;
-		}
+        public HouseController(ICategoryService _categoryService, IAgentService _agentService, IHouseService _houseService)
+        {
+            categoryService = _categoryService;
+            agentService = _agentService;
+            houseService = _houseService;
+        }
 
-		[HttpGet]
-		[AllowAnonymous]
-		public async Task<IActionResult> All([FromQuery] AllHousesQueryModel queryModel)
-		{
-			AllHousesFilteredAndPagedServiceModel serviceModel = await houseService.AllAsync(queryModel);
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromQuery] AllHousesQueryModel queryModel)
+        {
+            AllHousesFilteredAndPagedServiceModel serviceModel = await houseService.AllAsync(queryModel);
 
-			queryModel.Houses = serviceModel.Houses;
-			queryModel.TotalHouses = serviceModel.TotalHousesCount;
-			queryModel.Categories = await categoryService.AllCategoryNamesAsync();
+            queryModel.Houses = serviceModel.Houses;
+            queryModel.TotalHouses = serviceModel.TotalHousesCount;
+            queryModel.Categories = await categoryService.AllCategoryNamesAsync();
 
-			return View(queryModel);
-		}
+            return View(queryModel);
+        }
 
-		public async Task<IActionResult> Mine()
-		{
-			return View();
-		}
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<HouseAllViewModel> myHouses = new List<HouseAllViewModel>();
 
-		[HttpGet]
-		public async Task<IActionResult> Add()
-		{
-			bool isAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
-			if (!isAgent)
-			{
-				TempData[ErrorMessage] = "You must become an agent in order to add new houses!";
+            string userId = User.GetId()!;
+            bool isUserAgent = await agentService.AgentExistsByUserIdAsync(userId);
+            if (isUserAgent)
+            {
+                string? agentId = await agentService.GetAgentIdByUserIdAsync(userId);
+                myHouses.AddRange(await houseService.AllByAgentIdAsync(agentId!));
+            }
+            else
+            {
+                myHouses.AddRange(await houseService.AllByUserIdAsync(userId));
+            }
+            return View(myHouses);
+        }
 
-				return RedirectToAction("Become", "Agent");
-			}
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            bool isAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
+            if (!isAgent)
+            {
+                TempData[ErrorMessage] = "You must become an agent in order to add new houses!";
 
-			HouseFormModel formModel = new HouseFormModel();
+                return RedirectToAction("Become", "Agent");
+            }
 
-			formModel.Categories = await categoryService.AllCategoriesAsync();
+            HouseFormModel formModel = new HouseFormModel();
 
-			return View(formModel);
-		}
+            formModel.Categories = await categoryService.AllCategoriesAsync();
 
-		[HttpPost]
-		public async Task<IActionResult> Add(HouseFormModel model)
-		{
-			bool isAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
-			if (!isAgent)
-			{
-				TempData[ErrorMessage] = "You must become an agent in order to add new houses!";
+            return View(formModel);
+        }
 
-				return RedirectToAction("Become", "Agent");
-			}
+        [HttpPost]
+        public async Task<IActionResult> Add(HouseFormModel model)
+        {
+            bool isAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
+            if (!isAgent)
+            {
+                TempData[ErrorMessage] = "You must become an agent in order to add new houses!";
 
-			bool isCategoryExists = await categoryService.ExistsByIdAsync(model.CategoryId);
-			if (!isCategoryExists)
-			{
-				// Adding model error to ModelState automatically makes ModelState Invalid
-				ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist.");
-			}
+                return RedirectToAction("Become", "Agent");
+            }
 
-			if (!ModelState.IsValid)
-			{
-				model.Categories = await categoryService.AllCategoriesAsync();
+            bool isCategoryExists = await categoryService.ExistsByIdAsync(model.CategoryId);
+            if (!isCategoryExists)
+            {
+                // Adding model error to ModelState automatically makes ModelState Invalid
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist.");
+            }
 
-				return View(model);
-			}
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await categoryService.AllCategoriesAsync();
 
-			try
-			{
-				string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
+                return View(model);
+            }
 
-				await houseService.CreateAsync(model, agentId!);
-			}
-			catch (Exception _)
-			{
-				ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your new house. Plese try again later or contact administrator!");
+            try
+            {
+                string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
 
-				model.Categories = await categoryService.AllCategoriesAsync();
+                await houseService.CreateAsync(model, agentId!);
+            }
+            catch (Exception _)
+            {
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your new house. Plese try again later or contact administrator!");
 
-				return View(model);
-			}
+                model.Categories = await categoryService.AllCategoriesAsync();
 
-			return RedirectToAction("All", "House");
-		}
-	}
+                return View(model);
+            }
+
+            return RedirectToAction("All", "House");
+        }
+    }
 }

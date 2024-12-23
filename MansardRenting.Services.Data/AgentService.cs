@@ -17,25 +17,34 @@ namespace MansardRenting.Services.Data
 
 		public async Task<bool> AgentExistsByUserIdAsync(string userId)
 		{
-			return await dbContext.Agents.AnyAsync(a => a.UserId.ToString().ToLower() == userId.ToLower());
-		}
+            bool result = await dbContext
+                .Agents
+                .AnyAsync(a => a.UserId.ToString() == userId);
+
+            return result;
+        }
 
 		public async Task<bool> AgentExistsByPhoneNumberAsync(string phoneNumber)
 		{
-			return await dbContext.Agents.AnyAsync(a => a.PhoneNumber == phoneNumber);
-		}
+            bool result = await dbContext
+                .Agents
+                .AnyAsync(a => a.PhoneNumber == phoneNumber);
+
+            return result;
+        }
 
 		public async Task<bool> HasRentsByUserIdAsync(string userId)
 		{
-			ApplicationUser? user = await dbContext.Users.Include(applicationUser => applicationUser.RentedHouses).FirstOrDefaultAsync(u => u.Id.ToString().ToLower() == userId);
+            ApplicationUser? user = await dbContext
+                .Users
+                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            if (user == null)
+            {
+                return false;
+            }
 
-			if (user == null)
-			{
-				return false;
-			}
-
-			return user.RentedHouses.Any();
-		}
+            return user.RentedHouses.Any();
+        }
 
 		public async Task Create(string userId, BecomeAgentFormModel model)
 		{
