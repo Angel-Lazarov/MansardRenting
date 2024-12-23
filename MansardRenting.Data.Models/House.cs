@@ -28,11 +28,13 @@ namespace MansardRenting.Data.Models
         public DateTime CreatedOn { get; set; }
 
         [Required]
-        [MaxLength(ImageUrlMaxLength)]
+        [MaxLength(ImageUrlMaxLength)]  
         public string ImageUrl { get; set; } = null!;
 
         [Required]
         public decimal PricePerMonth { get; set; }
+
+        public bool IsActive { get; set; }
 
         public int CategoryId { get; set; }
 

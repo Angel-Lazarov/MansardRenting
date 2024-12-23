@@ -21,7 +21,6 @@ public class HomeController : Controller
 	{
 		IEnumerable<IndexViewModel> viewModel = await houseService.LastThreeHousesAsync();
 		return View(viewModel);
-		return View();
 	}
 
 	public IActionResult Privacy()

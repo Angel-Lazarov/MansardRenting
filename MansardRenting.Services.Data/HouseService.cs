@@ -21,6 +21,7 @@ namespace MansardRenting.Services.Data
 		public async Task<IEnumerable<IndexViewModel>> LastThreeHousesAsync()
 		{
 			IEnumerable<IndexViewModel> lastThreeHouses = await dbContext.Houses
+				.Where(h=>h.IsActive)
 				.OrderByDescending(x => x.CreatedOn)
 				.Take(3)
 				.Select(h => new IndexViewModel
@@ -80,14 +81,15 @@ namespace MansardRenting.Services.Data
 
 			housesQuery = queryModel.HouseSorting switch
 			{
-				HouseSorting.Newest => housesQuery.OrderBy(h => h.CreatedOn),
-				HouseSorting.Oldest => housesQuery.OrderByDescending(h => h.CreatedOn),
+				HouseSorting.Newest => housesQuery.OrderByDescending(h => h.CreatedOn),
+				HouseSorting.Oldest => housesQuery.OrderBy(h => h.CreatedOn),
 				HouseSorting.PriceAscending => housesQuery.OrderBy(h => h.PricePerMonth),
 				HouseSorting.PriceDescending => housesQuery.OrderByDescending(h => h.PricePerMonth),
 				_ => housesQuery.OrderBy(h => h.RenterId != null).ThenByDescending(h => h.CreatedOn)
 			};
 
 			IEnumerable<HouseAllViewModel> allHouses = await housesQuery
+				.Where(h=>h.IsActive)
 				.Skip((queryModel.CurrentPage - 1) * queryModel.HousesPerPage)
 				.Take(queryModel.HousesPerPage)
 				.Select(h => new HouseAllViewModel
