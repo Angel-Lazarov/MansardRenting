@@ -3,6 +3,7 @@ using MansardRenting.Data.Models;
 using MansardRenting.Services.Data.Interfaces;
 using MansardRenting.Services.Data.Models.House;
 using MansardRenting.Web.ViewModels.Home;
+using MansardRenting.Web.ViewModels.Agent;
 using MansardRenting.Web.ViewModels.House;
 using MansardRenting.Web.ViewModels.House.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -151,6 +152,38 @@ namespace MansardRenting.Services.Data
                .ToArrayAsync();
 
             return allUserHouses;
+        }
+
+        public async Task<HouseDetailsViewModel?> GetDetailsByIdAsync(string houseId)
+        {
+            House? house = await dbContext.Houses
+                .Include(h => h.Category)
+                .Include(h => h.Agent)
+                .ThenInclude(a => a.User)
+                .Where(h => h.IsActive)
+                 .FirstOrDefaultAsync(h => h.Id.ToString() == houseId);
+
+            if (house == null) 
+            {
+                return null; 
+            }
+
+            return new HouseDetailsViewModel()
+            {
+                Id = house.Id.ToString(),
+                Title = house.Title,
+                Address = house.Address,
+                ImageUrl = house.ImageUrl,
+                PricePerMonth = house.PricePerMonth,
+                IsRented = house.RenterId.HasValue,
+                Description = house.Description,
+                Category = house.Category.Name,
+                Agent = new AgentInfoOnHouseViewModel()
+                {
+                    Email = house.Agent.User.Email,
+                    PhoneNumber = house.Agent.PhoneNumber
+                }
+            };
         }
     }
 }

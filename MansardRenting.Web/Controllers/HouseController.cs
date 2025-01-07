@@ -114,5 +114,21 @@ namespace MansardRenting.Web.Controllers
 
             return RedirectToAction("All", "House");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id) 
+        {
+            HouseDetailsViewModel? viewModel = await houseService
+                .GetDetailsByIdAsync(id);
+
+            if (viewModel == null) 
+            {
+                TempData[ErrorMessage] = "House with the provided id does not exist!";
+                return RedirectToAction("All", "House");
+            }
+
+            return View(viewModel);
+        }
     }
 }
