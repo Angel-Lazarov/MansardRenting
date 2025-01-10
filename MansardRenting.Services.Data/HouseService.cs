@@ -36,7 +36,7 @@ namespace MansardRenting.Services.Data
             return lastThreeHouses;
         }
 
-        public async Task CreateAsync(HouseFormModel model, string agentId)
+        public async Task<string> CreateAndReturnIdAsync(HouseFormModel model, string agentId)
         {
             House newHouse = new House
             {
@@ -51,6 +51,8 @@ namespace MansardRenting.Services.Data
 
             await dbContext.Houses.AddAsync(newHouse);
             await dbContext.SaveChangesAsync();
+
+            return newHouse.Id.ToString();
         }
 
         public async Task<AllHousesFilteredAndPagedServiceModel> AllAsync(AllHousesQueryModel queryModel)

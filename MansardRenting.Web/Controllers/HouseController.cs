@@ -118,7 +118,9 @@ namespace MansardRenting.Web.Controllers
             {
                 string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
 
-                await houseService.CreateAsync(model, agentId!);
+                string houseId = await houseService.CreateAndReturnIdAsync(model, agentId!);
+
+                return RedirectToAction("Details", "House", new { id = houseId });
             }
             catch (Exception)
             {
@@ -128,8 +130,6 @@ namespace MansardRenting.Web.Controllers
 
                 return View(model);
             }
-
-            return RedirectToAction("All", "House");
         }
 
         [HttpGet]
