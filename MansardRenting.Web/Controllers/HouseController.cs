@@ -159,9 +159,91 @@ namespace MansardRenting.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool houseExists = await houseService.ExistsByIdAsync(id);
+            if (!houseExists)
+            {
+                TempData[ErrorMessage] = "House with the provided id does not exist!";
+
+                return RedirectToAction("All", "House");
+            };
+
+            bool isUserAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
+            if (!isUserAgent)
+            {
+                TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+
+                return RedirectToAction("Become", "Agent");
+            };
+
+            string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
+
+            bool isAgentOwner = await houseService.IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+                return RedirectToAction("Mine", "House");
+            };
+
+            try
+            {
+                HousePreDeleteDetailsViewModel viewModel = await houseService.GetHouseForDeleteByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, HousePreDeleteDetailsViewModel model)
+        {
+            bool houseExists = await houseService.ExistsByIdAsync(id);
+            if (!houseExists)
+            {
+                TempData[ErrorMessage] = "House with the provided id does not exist!";
+
+                return RedirectToAction("All", "House");
+            };
+
+            bool isUserAgent = await agentService.AgentExistsByUserIdAsync(User.GetId()!);
+            if (!isUserAgent)
+            {
+                TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
+
+                return RedirectToAction("Become", "Agent");
+            };
+
+            string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
+
+            bool isAgentOwner = await houseService.IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
+                return RedirectToAction("Mine", "House");
+            };
+
+            try
+            {
+                await houseService.DeleteHouseByIdAsync(id);
+
+                TempData[WarningMessage] = "The house was successfully deleted!";
+                return RedirectToAction("Mine", "House");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-
             bool houseExists = await houseService.ExistsByIdAsync(id);
             if (!houseExists)
             {
@@ -238,7 +320,7 @@ namespace MansardRenting.Web.Controllers
 
             try
             {
-                await houseService.EditHouseByIdAndFormModel(id, model);
+                await houseService.EditHouseByIdAndFormModelAsync(id, model);
             }
             catch (Exception)
             {
