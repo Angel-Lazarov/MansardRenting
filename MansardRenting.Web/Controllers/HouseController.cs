@@ -120,6 +120,7 @@ namespace MansardRenting.Web.Controllers
 
                 string houseId = await houseService.CreateAndReturnIdAsync(model, agentId!);
 
+                TempData[SuccessMessage] = "House was added successfully!";
                 return RedirectToAction("Details", "House", new { id = houseId });
             }
             catch (Exception)
@@ -245,6 +246,8 @@ namespace MansardRenting.Web.Controllers
                 model.Categories = await categoryService.AllCategoriesAsync();
                 return View(model);
             }
+
+            TempData[SuccessMessage] = "House was edited successfully!";
             return RedirectToAction("Details", "House", new { id });
         }
 
